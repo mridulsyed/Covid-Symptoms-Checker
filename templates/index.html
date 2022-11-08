@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+
+<head>
+
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <title>COVID PREDICTOR</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+  <style>
+    h3.round2 {
+      border: 2px solid #08518a;
+      border-radius: 10px;
+      margin: 0px 30px 0px 30px;
+    }
+
+    body {
+      background-image: url("https://images.unsplash.com/photo-1582795003154-35736cf26353?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80");
+      background-color: #cccccc;
+      margin: auto;
+      background-repeat: repeat;
+
+
+
+      backdrop-filter: blur(10px);
+
+
+
+    }
+
+    .topnav {
+      overflow: hidden;
+      background-color: #0f71bb;
+    }
+
+    .bottomnav {
+      overflow: hidden;
+      background-color: #0f71bb;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: auto;
+    }
+
+    .button {
+      background-color: #0f71bb;
+      margin-bottom: 20px !important;
+      border: 2px solid #09436ed7;
+      ;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 17px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    .buttonr {
+      border-radius: 10px;
+    }
+  </style>
+
+</head>
+
+
+<!--  <body style="background-color:#e8ececf8;">  -->
+
+<body style="background-color:#e8ececf8;">
+
+  <div class="topnav" style="text-align:center">
+    <h1 style="color:white;">Covid Symptoms Checker</h1>
+  </div>
+
+  <div style="text-align:center" ; class="login">
+
+
+    <p style="font-size:130%;">Welcome to Covid Symptoms Checker! <br> We will ask you a few questions about the
+      Symptoms you
+      are facing and give you
+      a percentage using Machine Learning of your possibility of being infected by Covid-19.</p>
+
+    <div>
+      <h3 style="color:#08518a" class="round2">{{ prediction_text }}</h3>
+
+    </div>
+
+
+    <!-- Main Input For Receiving Query to our ML -->
+    <form class="form-inline" action="{{ url_for('predict')}}" method="POST">
+
+      <p style="font-size:120%;"> Do you have Fever?
+      </p>
+
+
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Yes</option>
+        <option value='0'>No</option>
+
+      </select>
+
+
+
+
+      <br>
+      <br>
+
+      <p style="font-size:120%;"> Do you have Tiredness?
+      </p>
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Yes</option>
+        <option value='0'>No</option>
+
+      </select>
+
+      <br>
+      <br>
+
+      <p style="font-size:120%;"> Do you have Dry Cough?
+      </p>
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Yes</option>
+        <option value='0'>No</option>
+
+      </select>
+
+      <br>
+      <br>
+
+      <p style="font-size:120%;"> Do you have Difficulty in Breathing?
+      </p>
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Yes</option>
+        <option value='0'>No</option>
+
+      </select>
+
+      <br>
+      <br>
+
+      <p style="font-size:120%;"> Do you have Sore-Throat?
+      </p>
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Yes</option>
+        <option value='0'>No</option>
+
+      </select>
+
+      <br>
+      <br>
+
+      <p style="font-size:120%;"> Do you have Head or Body ache?
+      </p>
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Yes</option>
+        <option value='0'>No</option>
+
+      </select>
+
+      <br>
+      <br>
+
+      <p style="font-size:120%;"> Do you have Nasal-Congestion?
+      </p>
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Yes</option>
+        <option value='0'>No</option>
+
+      </select>
+
+      <br>
+      <br>
+
+      <p style="font-size:120%;"> Do you have Runny Nose?
+      </p>
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Yes</option>
+        <option value='0'>No</option>
+
+      </select>
+
+      <br>
+      <br>
+
+      <p style="font-size:120%;"> Do you have Diarrhoea?
+      </p>
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Yes</option>
+        <option value='0'>No</option>
+
+      </select>
+
+      <br>
+      <br>
+
+      <p style="font-size:120%;"> Please select your Gender
+      </p>
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Male</option>
+        <option value='0'>Female</option>
+        <option value='0'>Other</option>
+      </select>
+
+      <br>
+      <br>
+
+      <p style="font-size:120%;"> Have you been in close contact with a Covid patient recently?
+      </p>
+
+      <select class='selectpicker form-control' name='comp_select' style="font-size:100%;">
+        <option selected='selected' value='0'>Select an option</option>
+        <option value='1'>Yes</option>
+        <option value='0'>No</option>
+        <option value='0'>Not Sure</option>
+      </select>
+
+      <br>
+      <br>
+
+
+      <button type="submit" class="button buttonr" style="font-size:110%;">Predict</button>
+    </form>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="bottomnav" style="text-align:center">
+      <p style="color:white;">Developed by Azmal Awasaf</p>
+    </div>
+
+
+  </div>
+
+
+</body>
+
+</html>
